@@ -1,9 +1,43 @@
 - [Enumeration](#enumeration)
+  * [System Foothold](#system-foothold)
   * [Spawning TTY Shell](#spawning-tty-shell)
   * [Manual Enumeraiton](#manual-enumeration)
   * [Getting Proof](#getting-proof)
 
 ## Enumeration
+
+### System Foothold
+
+Print the name and version of the Unix/Linux box:
+
+```
+uname -a
+cat /proc/version
+cat /etc/issue
+```
+
+Find linux distribution & version:
+
+```
+cat /etc/issue; cat /etc/*-release; cat /etc/lsb-release; cat /etc/redhat-release;
+```
+
+Find Architecture:
+
+```
+$ cat /proc/version; uname -a; uname -mrs; rpm -q kernel; dmesg | grep Linux; ls /boot | grep vmlinuz-; file /bin/ls; cat /etc/lsb-release
+```
+
+For Kernels exploits search in Searchsploit or:
+
+
+GoogleHacking:
+
+```
+site:exploit-db.com kernel version
+```
+
+Or using linprivchecker.py or lse.py (Linux Smart Enumartion script).
 
 ### Spawning TTY Shell
 
