@@ -1,3 +1,6 @@
+- [Enumeration](#enumeration)
+  * [Manual Enumeration](#manual-enumeration)
+
 ## Enumeration
 
 
