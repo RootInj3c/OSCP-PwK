@@ -1,8 +1,11 @@
 - [Enumeration](#enumeration)
-  * [Manual Enumeration](#manual-enumeration)
+  * [Spawning TTY Shell](#spawning-tty-shell)
+  * [Manual Enumeraiton](#manual-enumeration)
+  * [Getting Proof](#getting-proof)
 
 ## Enumeration
 
+### Spawning TTY Shell
 
 After getting intial shell, create TTY shell:
 
@@ -124,6 +127,8 @@ Check background process (cronjobs):
 ```
 crontab -l; ls -alh /var/spool/cron; ls -al /etc/ | grep cron; ls -al /etc/cron*; cat /etc/cron*; cat /etc/at.allow; cat /etc/at.deny; cat /etc/cron.allow; cat /etc/cron.deny
 ```
+
+### Getting Proof
 
 Getting final Proof:
 
