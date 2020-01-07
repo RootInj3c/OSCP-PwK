@@ -1,4 +1,6 @@
-## SUID
+## SUID Binaries
+
+@Description: SUID (Set User ID) bit is a special permission in Linux that allows a program to run as the program's owner for all users on the system that have access to it which may lead to performing privilege escalation by execute code or write arbitrary data on the system.
 
 ### How to Find SUIDs?
 
