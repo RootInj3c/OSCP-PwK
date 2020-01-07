@@ -233,7 +233,7 @@ s.send('PASS ' + payload + '\r\n')
 print "\nDone!."
 ```
 
-*NOTE:* The return address is written the wrong way around in little endian format.
+*NOTE:* The return address is written in little endian format.
 
 ## Shellcode
 
