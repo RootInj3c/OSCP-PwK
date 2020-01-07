@@ -126,7 +126,7 @@ overwritten by B's (\x42).
 
 ## Add space for shellcode
 
-We can see that ESP register points directly to the beginning of our buffer of C's, but the as shellcode requires ~350-400 bytes of space the 90 bytes of our space won't be enough.
+We can see that ESP register points directly to the beginning of our buffer of C's, but the  shellcode requires ~350-400 bytes of space and the 90 bytes of our space won't be enough.
 
 Let's increse the total buffer from 2700 to 3500 and make larger buffer space for our shellcode:
 
