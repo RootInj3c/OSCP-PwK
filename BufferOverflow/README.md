@@ -7,7 +7,7 @@ In this section, there are two registers to remember:
     EIP - Extended Instruction Pointer
         holds the current address location for the instruction being executed at any given time
 
-This will demostarte the Buffer overflow on Seattle Lab Mail (SLmail) 5.5, download the vulnerable version from here:
+Here I will demostarte the Buffer overflow on Seattle Lab Mail (SLmail) 5.5, download the vulnerable version from here:
 https://www.exploit-db.com/apps/12f1ab027e5374587e7e998c00682c5d-SLMail55_4433.exe
 
 ## Fuzzing buffer
