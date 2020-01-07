@@ -206,7 +206,7 @@ While application paused in debugger we will use Mona script to locate loaded mo
 !mona moduels
 ```
 
-The output should contain list of DLLs and EXEs application may use. We need to locate libaries with no memory protections (ASLR, DEP) and it's range does not contain bad chars. In our case we found SLMFC.DLL which has no memory protections.
+The output should contain list of DLLs and EXEs application may use. We need to locate libaries with no memory protections (ASLR, DEP or Stack Canaries) and it's range does not contain bad chars. In our case we found SLMFC.DLL which has no memory protections.
 
 Next step is locate a JMP ESP opcode (\xff\xe4) address in this DLL using the following Mona command:
 
