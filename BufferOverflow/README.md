@@ -10,6 +10,14 @@ In this section, there are two registers to remember:
 Here I will demostarte the Buffer overflow on Seattle Lab Mail (SLmail) 5.5, download the vulnerable version from here:
 https://www.exploit-db.com/apps/12f1ab027e5374587e7e998c00682c5d-SLMail55_4433.exe
 
+During the practice I used Immunity Debugger with Mona Script.
+
+Download Immunity Debugger:
+https://www.immunityinc.com/products/debugger/
+
+Download Mona:
+https://github.com/corelan/mona
+
 ## Fuzzing buffer
 
 Firstly, I used the following pop3-pass-fuzzer.py script template to fuzz application and discover how many bytes crash the application:
@@ -255,7 +263,7 @@ In our case:
 
 2606 - 4 - 351 = 2251 bytes left for our payload data and our nopsled.
 
-So we will use 16 times NOP sleds (\x91) and substract it from our final padding:
+So we will use 16 times NOP sleds (\x90) and substract it from our final padding:
 
 ```
 import socket
