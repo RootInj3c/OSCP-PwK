@@ -5,12 +5,15 @@ This technique, allows us to authenticate to a remote target by using a valid us
 
 Windows hash format:
 
- user:group:id:ntlmpassword::
+```
+user:group:id:ntlmpassword::
+```
 
 For example:
 
+```
  Admin:502:aad3c435b514a4eeaad3b935b51304fe:c46b9e588fa0d112de6f59fd6d58eae3:::
-
+```
 
 This hash divided by semicolon, means:
 
