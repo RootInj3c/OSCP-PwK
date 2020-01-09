@@ -10,8 +10,6 @@ Welcome to my learning notes for OSCP by OffensiveSecurity. I will update the me
 hostname && whoami && type C:\Documents and Settings\Administrator\Desktop\proof.txt && ipconfig /all
 ```
 
-*NOTE*: In some case the Administrator name may be diffrent so pay attention.
-
 ### Linux
 
 ```
