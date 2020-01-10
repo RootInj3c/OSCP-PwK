@@ -1,5 +1,13 @@
 # Sudo Abuse
 
+## Quick Win
+
+Do we have sudo priviliage already ? If so -> game over : )
+
+```
+bob@victimlinux:~/#: sudo su -
+```
+
 ## Sudo SUIDs (Shell Escape Sequences)
 
 This techniques uses common Unix binaries to bypass local security restrictions and privilaige esclation, read more here: https://github.com/RootInj3c/OSCP-PwK/blob/master/Linux/SUID_Bash.md#gtfobins
