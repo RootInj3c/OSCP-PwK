@@ -29,7 +29,7 @@ netstat -ano
 For example, if MySQL found listen locally on 3306 we can use plink.exe to prefrom port forward to our machine:
 
 ```
-root@kali:~/#: plink.exe -l root -pw toor 192.168.0.101 -R 3306:127.0.0.1:3306
+C:\Windows\Temp> plink.exe -l root -pw toor 192.168.0.101 -R 3306:127.0.0.1:3306
 ```
 
 Then in kali you could interact with database locally:
@@ -42,7 +42,13 @@ The plink.exe could be found here: https://www.chiark.greenend.org.uk/~sgtatham/
 
 ### Linux
 
-TBD
+Use Local port forwarding technqiue with ssh command to as following:
+
+```
+alice@vcitimmachine:~/#: ssh -L 3306:127.0.0.1:3306 root@192.168.0.101
+```
+
+There are many techniques such as Remote port forwarding, Dynamic port forwarding and SSHuttle tool which might be useful for some cases :)
 
 ## Transferring files
 
